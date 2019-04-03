@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@latest/dist/vee-validate.js"></script>
+	<script>
+		Vue.use(VeeValidate, {
+		  classes: true,
+		  classNames: {
+			valid: 'is-valid',
+			invalid: 'is-invalid'
+		  }
+		});
+	</script>
+	<style>
+	.is-invalid {
+		border-color: #dc3545;
+	}
+	</style>
+</head>
+<body>
+    <div id="test">
+        <input v-validate="'required|email'" name="email" type="text">
+		<span>{{ errors.first('email') }}</span>
+        <input v-validate="'required|email'" name="email" type="text">
+        <span>{{ errors.first('fieldName') }}</span>
+		<button v-on:click="click_valid">test</button>
+    </div>
+    
+    <script>
+        new Vue({
+            el:"#test",
+            data:{},
+            methods:{
+                click_valid : function() {
+					this.$validator.validate().then(valid => {
+						if (!valid) {
+							alert("false");
+							}
+						});
+					}
+				}
+			});
+    </script>
+</body>
+</html>
